@@ -25,3 +25,10 @@ Route::get('countries/show', 'CountryAPIController@show');
 Route::post('countries/store', 'CountryAPIController@store');
 Route::put('countries/update', 'CountryAPIController@update');
 Route::delete('countries/destroy', 'CountryAPIController@destroy');
+
+//Roles API Routes
+Route::get('roles', 'RoleAPIController@index');
+Route::get('roles/show', 'RoleAPIController@show');
+Route::post('roles/store', 'RoleAPIController@store');
+Route::put('roles/update', 'RoleAPIController@update');
+Route::delete('roles/destroy', 'RoleAPIController@destroy');
