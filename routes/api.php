@@ -32,3 +32,10 @@ Route::get('roles/show', 'RoleAPIController@show');
 Route::post('roles/store', 'RoleAPIController@store');
 Route::put('roles/update', 'RoleAPIController@update');
 Route::delete('roles/destroy', 'RoleAPIController@destroy');
+
+//Restaurants API Routes
+Route::get('restaurants', 'RestaurantAPIController@index');
+Route::get('restaurants/show', 'RestaurantAPIController@show');
+Route::post('restaurants/store', 'RestaurantAPIController@store');
+Route::put('restaurants/update', 'RestaurantAPIController@update');
+Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
