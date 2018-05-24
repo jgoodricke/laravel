@@ -39,3 +39,7 @@ Route::get('restaurants/show', 'RestaurantAPIController@show');
 Route::post('restaurants/store', 'RestaurantAPIController@store');
 Route::put('restaurants/update', 'RestaurantAPIController@update');
 Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
+
+//Restaurant Post Comment API Route
+Route::get('restaurantPostComment', 'RestaurantPostCommentAPIController@show');
+Route::get('restaurantId', 'RestaurantIdAPIController@show');
