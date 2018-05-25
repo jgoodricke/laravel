@@ -70,7 +70,7 @@
 						},
 						{
 							"key": "phone",
-							"value": "00000000",
+							"value": "Hello",
 							"description": "",
 							"type": "text"
 						},						

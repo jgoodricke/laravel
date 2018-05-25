@@ -12,16 +12,27 @@ class Restaurant extends Model
     protected $primaryKey = "id";
     protected $fillable = ['name', 'phone', 'address1', 'address2', 'suburb', 'state', 'numberofseats', 'country_id', 'category_id'];
 
-    public function country()
-    {
-      return $this->hasOne('App\Country', 'id', 'country_id');
-    }
-    public function category()
-    {
-      return $this->hasOne('App\Category', 'id', 'category_id');
-    }
     public function posts()
     {
-      return $this->hasMany('App\Post', 'id', 'id');
+      return $this->hasMany('App\Post', 'id');
     }
+
+    public function country()
+    {
+      return $this->belongsTo('App\Country', 'id');
+    }
+
+    public function category()
+    {
+      return $this->belongsTo('App\Category', 'id');
+    }
+
+    /*public function category()
+      {
+        return $this->hasOne('App\Category', 'id', 'category_id');
+      }*/
+      /*public function country()
+      {
+        return $this->hasOne('App\Country', 'id', 'country_id');
+      }*/
 }
