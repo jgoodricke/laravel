@@ -50,3 +50,10 @@ Route::get('categories/show', 'CategoryAPIController@show');
 Route::post('categories/store', 'CategoryAPIController@store');
 Route::put('categories/update', 'CategoryAPIController@update');
 Route::delete('categories/destroy', 'CategoryAPIController@destroy');
+
+//Users API Routes
+Route::get('users', 'UserAPIController@index');
+Route::get('users/show', 'UserAPIController@show');
+Route::post('users/store', 'UserAPIController@store' );
+Route::put('users/update', 'UserAPIController@update');
+Route::delete('users/destroy', 'UserAPIController@destroy');
