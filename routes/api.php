@@ -43,3 +43,10 @@ Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
 //Restaurant Post Comment API Route
 Route::get('restaurantPostComment', 'RestaurantPostCommentAPIController@show');
 Route::get('restaurantId', 'RestaurantIdAPIController@show');
+
+//Category API Routes
+Route::get('categories', 'CategoryAPIController@index');
+Route::get('categories/show', 'CategoryAPIController@show');
+Route::post('categories/store', 'CategoryAPIController@store');
+Route::put('categories/update', 'CategoryAPIController@update');
+Route::delete('categories/destroy', 'CategoryAPIController@destroy');
