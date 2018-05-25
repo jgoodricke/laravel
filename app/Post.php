@@ -22,7 +22,7 @@ class Post extends Model
       return $this->belongsTo('App\User', 'id');
     }
 
-    public function restaurant()
+    public function Restaurant()
     {
       return $this->belongsTo('App\Restaurant', 'id');
     }

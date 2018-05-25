@@ -27,6 +27,11 @@ class RestaurantAPIController extends Controller
     $Restaurant = Restaurant::create($request->all());
     return response()->json($Restaurant, 201);
 
+    /*$validator = StoreRestaurant::make(Input::all());
+    if ($validator->fails())
+      return
+    return response()->json($Restaurant, 201);
+
     /*$rules = array(
       'name' => 'required',
     );

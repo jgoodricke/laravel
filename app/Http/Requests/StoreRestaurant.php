@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRestaurant extends FormRequest
 {
@@ -15,6 +17,7 @@ class StoreRestaurant extends FormRequest
     {
         return true;
     }
+    public $forceJsoResponse=true;
 
     /**
      * Get the validation rules that apply to the request.
@@ -81,4 +84,13 @@ class StoreRestaurant extends FormRequest
         'category_id.min' => 'Your catagory ID cant be less than 0.'
       ];
     }
+
+    protected function failedValidation(Validator $validator) {
+    $response = [];
+    $response['data'] = [];
+    $response['status'] = 0;
+    $response['message'] = trans('message.validation_errors');
+    $response['errors'] = $validator->errors();
+    throw new HttpResponseException(response()->json($response, 422));
+  }
 }
