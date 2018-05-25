@@ -32,3 +32,10 @@ Route::get('roles/show', 'RoleAPIController@show');
 Route::post('roles/store', 'RoleAPIController@store');
 Route::put('roles/update', 'RoleAPIController@update');
 Route::delete('roles/destroy', 'RoleAPIController@destroy');
+
+//Category API Routes
+Route::get('categories', 'CategoryAPIController@index');
+Route::get('categories/show', 'CategoryAPIController@show');
+Route::post('categories/store', 'CategoryAPIController@store');
+Route::put('categories/update', 'CategoryAPIController@update');
+Route::delete('categories/destroy', 'CategoryAPIController@destroy');
