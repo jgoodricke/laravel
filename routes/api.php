@@ -53,3 +53,9 @@ Route::get('restaurants/show', 'RestaurantAPIController@show');
 Route::post('restaurants/store', 'RestaurantAPIController@store');
 Route::put('restaurants/update', 'RestaurantAPIController@update');
 Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
+
+//Post API Routes
+Route::get('posts', 'PostAPIController@index');
+Route::post('posts/store', 'PostAPIController@store');
+Route::put('posts/update', 'PostAPIController@update');
+Route::delete('posts/destroy', 'PostAPIController@destroy');
