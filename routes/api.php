@@ -59,3 +59,22 @@ Route::get('users/show', 'UserAPIController@show');
 Route::post('users/store', 'UserAPIController@store' );
 Route::put('users/update', 'UserAPIController@update');
 Route::delete('users/destroy', 'UserAPIController@destroy');
+
+//Resurant API Routes
+Route::get('restaurants', 'RestaurantAPIController@index');
+Route::get('restaurants/show', 'RestaurantAPIController@show');
+Route::post('restaurants/store', 'RestaurantAPIController@store');
+Route::put('restaurants/update', 'RestaurantAPIController@update');
+Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
+
+//Post API Routes
+Route::get('posts', 'PostAPIController@index');
+Route::post('posts/store', 'PostAPIController@store');
+Route::put('posts/update', 'PostAPIController@update');
+Route::delete('posts/destroy', 'PostAPIController@destroy');
+
+//Commment API RouteServiceProvider
+Route::get('comments', 'CommentAPIController@index');
+Route::post('comments/store', 'CommentAPIController@store');
+Route::put('comments/update', 'CommentAPIController@update');
+Route::delete('comments/destroy', 'CommentAPIController@destroy');

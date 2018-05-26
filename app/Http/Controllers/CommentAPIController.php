@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Http\Controllers\Controller;
+use App\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -12,8 +13,7 @@ use Input;
 use Session;
 use Redirect;
 
-
-class UserAPIController extends Controller
+class CommentAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class UserAPIController extends Controller
      */
     public function index()
     {
-      return User::all();
+        return Comment::all();
     }
 
     /**
@@ -44,19 +44,19 @@ class UserAPIController extends Controller
     public function store(Request $request)
     {
         $rules = [
-          'name' => 'required|max:255',
-          'email' => 'required|max:255',
-          'password' => 'nullable|max:255',
-          'country_id' => 'required|nummeric|max:999999999'
+          'content' => 'required|max:255',
+          'post_id' => 'required|max:100000000|numeric',
+          'user_id' => 'required|max:100000000|numeric'
         ];
+
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails())
         {
           return response()->json($validator->errors(), 422);
         }
         else {
-          $user = User::create($request->all());
-          return response()->json($user, 201);
+          $comment = Comment::create($request->all());
+          return response()->json($comment, 201);
         }
     }
 
@@ -66,10 +66,9 @@ class UserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        $user = User::find($request['id']);
-        return response()->json($user, 201);
+        //
     }
 
     /**
@@ -78,7 +77,7 @@ class UserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
 
     }
@@ -93,21 +92,21 @@ class UserAPIController extends Controller
     public function update(Request $request)
     {
       $rules = [
-        'id' => 'required|numberic|max:999999999',
-        'name' => 'required|max:255',
-        'email' => 'required|max:255',
-        'password' => 'nullable|max:255',
-        'country_id' => 'required|nummeric|max:999999999'
+        'id' => 'required|max:100000000|numeric',
+        'content' => 'required|max:255',
+        'post_id' => 'required|max:100000000|numeric',
+        'user_id' => 'required|max:100000000|numeric'
       ];
+
       $validator = Validator::make($request->all(), $rules);
       if($validator->fails())
       {
         return response()->json($validator->errors(), 422);
       }
       else {
-        $user = User::find($request['id']);
-        $user->update($request->all());
-        return response()->json($user, 200);
+        $comment = Comment::find($request['id']);
+        $comment->update($request->all());
+        return response()->json($comment, 200);
       }
     }
 
@@ -119,8 +118,8 @@ class UserAPIController extends Controller
      */
     public function destroy(Request $request)
     {
-        $user = User::find($request['id']);
-        $user->delete();
+        $comment = Comment::find($request['id']);
+        $comment->delete();
         return response()->json(null, 204);
     }
 }
