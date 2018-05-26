@@ -46,3 +46,10 @@ Route::get('users/show', 'UserAPIController@show');
 Route::post('users/store', 'UserAPIController@store' );
 Route::put('users/update', 'UserAPIController@update');
 Route::delete('users/destroy', 'UserAPIController@destroy');
+
+//Resurant API Routes
+Route::get('restaurants', 'RestaurantAPIController@index');
+Route::get('restaurants/show', 'RestaurantAPIController@show');
+Route::post('restaurants/store', 'RestaurantAPIController@store');
+Route::put('restaurants/update', 'RestaurantAPIController@update');
+Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
