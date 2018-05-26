@@ -59,3 +59,9 @@ Route::get('posts', 'PostAPIController@index');
 Route::post('posts/store', 'PostAPIController@store');
 Route::put('posts/update', 'PostAPIController@update');
 Route::delete('posts/destroy', 'PostAPIController@destroy');
+
+//Commment API RouteServiceProvider
+Route::get('comments', 'CommentAPIController@index');
+Route::post('comments/store', 'CommentAPIController@store');
+Route::put('comments/update', 'CommentAPIController@update');
+Route::delete('comments/destroy', 'CommentAPIController@destroy');
