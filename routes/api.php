@@ -42,6 +42,8 @@ Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
 
 //Restaurant Post Comment API Route
 Route::get('restaurantPostComment', 'RestaurantPostCommentAPIController@show');
+
+//Restaurant with Country and Catagory ID route
 Route::get('restaurantId', 'RestaurantIdAPIController@show');
 
 //Category API Routes
