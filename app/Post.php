@@ -14,16 +14,16 @@ class Post extends Model
 
     public function comments()
     {
-      return $this->hasMany('App\Comment', 'id');
+      return $this->hasMany('App\Comment', 'post_id');
     }
 
     public function user()
     {
-      return $this->belongsTo('App\User', 'id');
+      return $this->belongsTo('App\User', 'user_id');
     }
 
     public function Restaurant()
     {
-      return $this->belongsTo('App\Restaurant', 'id');
+      return $this->belongsTo('App\Restaurant', 'restaurant_id');
     }
 }

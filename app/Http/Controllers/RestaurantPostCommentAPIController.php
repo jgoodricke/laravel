@@ -16,8 +16,16 @@ class RestaurantPostCommentAPIController extends Controller
 {
   public function show(Request $request)
   {
-    $Restaurant = Restaurant::with('posts.comments')->find($request['id']);
-    return response()->json($Restaurant, 200);
+    $rules = array(
+      'id' => 'required|integer|min:0'
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $Restaurant = Restaurant::with('posts.comments');
+      return response()->json($Restaurant->find($request['id']), 200);
+    }
 
     //$Restaurant = Restaurant::find($request['id'])::with('posts')->get();
     //$Restaurant = Restaurant::find($request['id'])->with('posts.comments');

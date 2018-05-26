@@ -22,13 +22,29 @@ class RoleAPIController extends Controller
   }
   public function store(Request $request)
   {
-    $Role = Role::create($request->all());
-    return response()->json($Role, 201);
+    $rules = array(
+      'name' => 'required|max:255'
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $Role = Role::create($request->all());
+      return response()->json($Role, 201);
+    }
   }
   public function show(Request $request)
   {
-    $Role = Role::find($request['id']);
-    return response()->json($Role, 201);
+    $rules = array(
+      'id' => 'required|integer|min:0'
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $Role = Role::find($request['id']);
+      return response()->json($Role, 201);
+    }
   }
   public function edit($id)
   {
@@ -36,15 +52,31 @@ class RoleAPIController extends Controller
   }
   public function update(Request $request)
   {
-    //
-    $Role = Role::find($request['id']);
-    $Role->update($request->all());
-    return response()->json($Role, 200);
+    $rules = array(
+      'id' => 'required|integer|min:0',
+      'name' => 'required|max:255'
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $Role = Role::find($request['id']);
+      $Role->update($request->all());
+      return response()->json($Role, 200);
+    }
   }
     public function destroy(Request $request)
   {
-    $Role = Role::find($request['id']);
-    $Role->delete();
-    return response()->json(null, 204);
+    $rules = array(
+      'id' => 'required|integer|min:0'
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $Role = Role::find($request['id']);
+      $Role->delete();
+      return response()->json(null, 204);
+    }
   }
 }

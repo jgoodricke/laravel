@@ -15,10 +15,17 @@ class RestaurantIdAPIController extends Controller
 {
   public function show(Request $request)
   {
-    //$Restaurant = Restaurant::find($request['id']);
-    $Restaurant = Restaurant::where('country_id', '=', $request['country_id'])
-    ->where('category_id', '=', $request['category_id'])->get();
-
-    return response()->json($Restaurant, 201);
+    $rules = array(
+      /*'country_id' => 'required|integer|min:0'
+      'category_id' => 'required|integer|min:0'*/
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $Restaurant = Restaurant::where('country_id', '=', $request['country_id'])
+      ->where('category_id', '=', $request['category_id'])->get();
+      return response()->json($Restaurant, 201);
+    }
   }
 }

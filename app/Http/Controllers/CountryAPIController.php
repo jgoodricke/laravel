@@ -22,13 +22,29 @@ class CountryAPIController extends Controller
   }
   public function store(Request $request)
   {
-    $country = Country::create($request->all());
-    return response()->json($country, 201);
+    $rules = array(
+      'name' => 'required|max:255',
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $country = Country::create($request->all());
+      return response()->json($country, 201);
+    }
   }
   public function show(Request $request)
   {
-    $country = Country::find($request['id']);
-    return response()->json($country, 201);
+    $rules = array(
+      'id' => 'required|integer|min:0',
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $country = Country::find($request['id']);
+      return response()->json($country, 201);
+    }
   }
   public function edit($id)
   {
@@ -36,15 +52,31 @@ class CountryAPIController extends Controller
   }
   public function update(Request $request)
   {
-    //
-    $country = Country::find($request['id']);
-    $country->update($request->all());
-    return response()->json($country, 200);
+    $rules = array(
+      'id' => 'required|integer|min:0',
+      'name' => 'required|max:255'
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $country = Country::find($request['id']);
+      $country->update($request->all());
+      return response()->json($country, 200);
+    }
   }
     public function destroy(Request $request)
   {
-    $country = Country::find($request['id']);
-    $country->delete();
-    return response()->json(null, 204);
+    $rules = array(
+      'id' => 'required|integer|min:0',
+    );
+    $validator = Validator::make(Input::all(), $rules);
+    if ($validator->fails()) {
+      return response()->json(['errors'=>$validator->errors()]);
+    } else {
+      $country = Country::find($request['id']);
+      $country->delete();
+      return response()->json(null, 204);
+    }
   }
 }

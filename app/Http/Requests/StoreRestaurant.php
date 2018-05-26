@@ -85,7 +85,8 @@ class StoreRestaurant extends FormRequest
       ];
     }
 
-    protected function failedValidation(Validator $validator) {
+    protected function failedValidation(Validator $validator)
+    {
     $response = [];
     $response['data'] = [];
     $response['status'] = 0;

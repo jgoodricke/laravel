@@ -14,17 +14,17 @@ class Restaurant extends Model
 
     public function posts()
     {
-      return $this->hasMany('App\Post', 'id');
+      return $this->hasMany('App\Post', 'restaurant_id');
     }
 
     public function country()
     {
-      return $this->belongsTo('App\Country', 'id');
+      return $this->belongsTo('App\Country', 'country_id');
     }
 
     public function category()
     {
-      return $this->belongsTo('App\Category', 'id');
+      return $this->belongsTo('App\Category', 'category_id');
     }
 
     /*public function category()
