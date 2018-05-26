@@ -43,8 +43,26 @@ class RestaurantAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $restaurant = Restaurant::create($request->all());
-        return response()->json($restaurant, 201);
+        $rules = [
+          'name' => 'required|max:255',
+          'phone' => 'nullable|numeric',
+          'address1' => 'required|max:255',
+          'address2' => 'nullable|max:255',
+          'suburb' => 'required|max:255',
+          'state' => 'required|max:3',
+          'numberofseats' => 'required|numeric',
+          'country_id' => 'required|max:999999999|numeric',
+          'category_id' => 'required|max:999999999|numeric'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+          return response()->json($validator->errors(),422);
+        }
+        else {
+          $restaurant = Restaurant::create($request->all());
+          return response()->json($restaurant, 201);
+        }
     }
 
     /**
@@ -79,9 +97,28 @@ class RestaurantAPIController extends Controller
      */
     public function update(Request $request)
     {
+      $rules = [
+        'id' => 'required|numeric|max:99999999',
+        'name' => 'required|max:255',
+        'phone' => 'nullable|numeric',
+        'address1' => 'required|max:255',
+        'address2' => 'nullable|max:255',
+        'suburb' => 'required|max:255',
+        'state' => 'required|max:3',
+        'numberofseats' => 'required|numeric',
+        'country_id' => 'required|max:999999999|numeric',
+        'category_id' => 'required|max:999999999|numeric'
+      ];
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails())
+      {
+        return response()->json($validator->errors(),422);
+      }
+      else {
         $restaurant = Restaurant::find($request['id']);
         $restaurant->update($request->all());
         return response()->json($restaurant, 200);
+      }
     }
 
     /**

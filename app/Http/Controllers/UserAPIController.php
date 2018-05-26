@@ -43,8 +43,21 @@ class UserAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return response()->json($user, 201);
+        $rules = [
+          'name' => 'required|max:255',
+          'email' => 'required|max:255',
+          'password' => 'nullable|max:255',
+          'country_id' => 'required|nummeric|max:999999999'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+          return response()->json($validator->errors(), 422);
+        }
+        else {
+          $user = User::create($request->all());
+          return response()->json($user, 201);
+        }
     }
 
     /**
@@ -79,9 +92,23 @@ class UserAPIController extends Controller
      */
     public function update(Request $request)
     {
-      $user = User::find($request['id']);
-      $user->update($request->all());
-      return response()->json($user, 200);
+      $rules = [
+        'id' => 'required|numberic|max:999999999',
+        'name' => 'required|max:255',
+        'email' => 'required|max:255',
+        'password' => 'nullable|max:255',
+        'country_id' => 'required|nummeric|max:999999999'
+      ];
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails())
+      {
+        return response()->json($validator->errors(), 422);
+      }
+      else {
+        $user = User::find($request['id']);
+        $user->update($request->all());
+        return response()->json($user, 200);
+      }
     }
 
     /**

@@ -42,8 +42,18 @@ class CategoryAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
-        return response()->json($category, 201);
+        $rules = [
+          'name' => 'required|max:255'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+          return response()->json($validator->errors(), 422);
+        }
+        else {
+          $category = Category::create($request->all());
+          return response()->json($category, 201);
+        }
     }
 
     /**
@@ -78,9 +88,20 @@ class CategoryAPIController extends Controller
      */
     public function update(Request $request)
     {
+      $rules = [
+        'id' => 'required|numeric',
+        'name' => 'required|max:255'
+      ];
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails())
+      {
+        return response()->json($validator->errors(), 422);
+      }
+      else {
         $category = Category::find($request['id']);
         $category->updated($request->all());
         return response()->json($category, 200);
+      }
     }
 
     /**

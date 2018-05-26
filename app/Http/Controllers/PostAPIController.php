@@ -43,8 +43,20 @@ class PostAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return response()->json($post, 201);
+        $rules = [
+          'content' => 'required|max:255',
+          'restaurant_id' => 'required|numeric|max:9999999999',
+          'user_id' => 'required|numeric|max:999999999'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+          return response()->json($validator->errors(),422);
+        }
+        else {
+          $post = Post::create($request->all());
+          return response()->json($post, 201);
+        }
     }
 
     /**
@@ -78,9 +90,22 @@ class PostAPIController extends Controller
      */
     public function update(Request $request)
     {
-      $post = Post::find($request['id']);
-      $post->update($request->all());
-      return response()->json($post, 201);
+      $rules = [
+        'id' => 'required|max:999999999|numeric',
+        'content' => 'required|max:255',
+        'restaurant_id' => 'required|numeric|max:9999999999',
+        'user_id' => 'required|numeric|max:999999999'
+      ];
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails())
+      {
+        return response()->json($validator->errors(),422);
+      }
+      else {
+        $post = Post::find($request['id']);
+        $post->update($request->all());
+        return response()->json($post, 201);
+      }
     }
 
     /**

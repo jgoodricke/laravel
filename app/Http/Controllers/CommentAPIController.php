@@ -43,8 +43,21 @@ class CommentAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $comment = Comment::create($request->all());
-        return response()->json($comment, 201);
+        $rules = [
+          'content' => 'required|max:255',
+          'post_id' => 'required|max:100000000|numeric',
+          'user_id' => 'required|max:100000000|numeric'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails())
+        {
+          return response()->json($validator->errors(), 422);
+        }
+        else {
+          $comment = Comment::create($request->all());
+          return response()->json($comment, 201);
+        }
     }
 
     /**
@@ -78,9 +91,23 @@ class CommentAPIController extends Controller
      */
     public function update(Request $request)
     {
+      $rules = [
+        'id' => 'required|max:100000000|numeric',
+        'content' => 'required|max:255',
+        'post_id' => 'required|max:100000000|numeric',
+        'user_id' => 'required|max:100000000|numeric'
+      ];
+
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails())
+      {
+        return response()->json($validator->errors(), 422);
+      }
+      else {
         $comment = Comment::find($request['id']);
         $comment->update($request->all());
         return response()->json($comment, 200);
+      }
     }
 
     /**
